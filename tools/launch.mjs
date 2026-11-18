@@ -19,6 +19,16 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+// 内置 node 优先：把当前 node 目录顶到 PATH 最前，保证派生的渲染服务 / vite
+// 及其内部脚本解析到的都是同一个 node，不依赖系统里是否装过 Node.js。
+{
+  const here = path.dirname(process.execPath);
+  const sep = path.delimiter;
+  const parts = (process.env.PATH ?? "").split(sep).filter(Boolean);
+  process.env.PATH = [here, ...parts.filter((p) => path.resolve(p) !== path.resolve(here))].join(sep);
+}
+
 const argv = process.argv.slice(2);
 const has = (f) => argv.includes(f);
 const valueOf = (f) => {

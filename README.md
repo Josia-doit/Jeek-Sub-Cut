@@ -48,18 +48,19 @@ contracts/     契约层：只有类型与接口，零实现零依赖
 
 ### 1. 安装
 
-先装 [Node.js 18+](https://npmmirror.com/mirrors/node/)（安装时勾选「添加到 PATH」）。然后在**仓库根目录**双击 `安装依赖.bat`，等它自己跑完。
+在**仓库根目录**双击 `安装依赖.bat`，等它自己跑完即可——脚本会自动下载内置 Node.js 并用它装齐全部依赖，系统无需预装任何运行环境。
 
 仓库里只有源码，运行时、二进制和模型都不在仓库中。安装脚本会把它们补齐，最终目录结构与开发用的 `app/` 完全一致：
 
 | 步骤 | 做了什么 | 产物 |
 | --- | --- | --- |
+| 引导 Node.js | 自动下载内置 Node.js（带 sha256 校验），系统无需预装 | `install/runtime/node/` |
 | `npm ci` | 按 `package-lock.json` 装 npm 依赖，版本与开发机一致 | `node_modules/` |
 | `npm run build` | 编译 contracts / core / engine / features，构建编辑器 | 各包 `dist/`、`apps/editor/dist/` |
 | `npm test` | 架构边界检查 + 契约 / 行为 / 端到端闭环 | 162 项全绿 |
 | 下载运行时 | 按 `install/deps.json` 从国内镜像取 Electron、ffmpeg、语音识别引擎与模型 | `resources/` |
 
-下载支持断点续传、sha256 校验、多镜像回退；已经装好的组件会自动跳过，重跑脚本很安全。安装结果记录在 `resources/install-state.json`。可选组件（ffmpeg、识别引擎与模型）下载失败不影响程序启动，联网恢复后重跑一次即可补齐。
+下载前会实测各镜像速度、优先走最快的源，传输中若持续过慢会自动切换镜像并从断点续传；全部组件带 sha256 校验，已装好的会自动跳过，重跑脚本很安全。安装结果记录在 `resources/install-state.json`。可选组件（ffmpeg、识别引擎与模型）下载失败不影响程序启动，联网恢复后重跑一次即可补齐。
 
 ### 2. 启动
 
@@ -120,7 +121,9 @@ JeekSubCut/
 │  ├─ render-service/       版本化 HTTP 渲染、识别与转码服务
 │  └─ desktop/              Electron 壳（electron.cjs 为命令行入口）
 ├─ install/
-│  └─ deps.json             运行时 / 二进制 / 模型的下载地址清单
+│  ├─ deps.json             运行时 / 二进制 / 模型的下载地址清单
+│  ├─ bootstrap-node.ps1    内置 Node.js 引导安装（Windows，自动执行）
+│  └─ 启动.sh               非 Windows 启动入口
 ├─ tools/
 │  ├─ install-deps.mjs      依赖自动安装
 │  ├─ launch.mjs            一键启动
@@ -131,7 +134,6 @@ JeekSubCut/
 ├─ docs/                    架构设计与回归基线
 ├─ 安装依赖.bat              双击安装（Windows）
 ├─ 启动.bat                  双击启动（Windows）
-├─ 启动.sh                   非 Windows 启动入口
 ├─ package.json             workspaces 与构建 / 安装 / 启动脚本
 └─ tsconfig.base.json       共享编译配置
 ```
@@ -226,6 +228,6 @@ JeekSubCut/
 
 ## 九、环境要求
 
-- Node.js 18+（[npmmirror 镜像下载](https://npmmirror.com/mirrors/node/)）
+- Node.js 无需预装：安装脚本自动下载内置版本（当前 v22.22.2，带 sha256 校验），系统里有没有 Node 都能装
 - Windows 10/11 x64（桌面壳目标平台；编辑器本身可在任意现代浏览器打开）
 - 本地端口 `5173`（编辑器）与 `5174`（渲染服务），仅监听 `127.0.0.1`

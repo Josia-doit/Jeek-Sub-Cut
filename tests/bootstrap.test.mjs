@@ -65,7 +65,8 @@ test("安装与启动入口：脚本、批处理、Shell 全部齐备", () => {
     "tools/smoke.mjs",
     "安装依赖.bat",
     "启动.bat",
-    "启动.sh",
+    "install/启动.sh",
+    "install/bootstrap-node.ps1",
     "apps/desktop/electron.cjs",
     "apps/desktop/src/preload.cjs",
   ]) {
