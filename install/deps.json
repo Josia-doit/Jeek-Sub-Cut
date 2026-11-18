@@ -1,0 +1,78 @@
+{
+  "schema": 2,
+  "appVersion": "0.1.0",
+  "note": "仓库只放源码。npm 依赖由 npm ci 安装，构建产物由 npm run build 生成，运行时 / 二进制 / 模型由 tools/install-deps.mjs 按这份清单下载到 resources/。不随程序分发任何第三方字体，避免授权问题；国内镜像优先；换发布位置时只改这里的 urls。",
+  "components": [
+    {
+      "id": "electron",
+      "title": "Electron 运行时 36.9.5（桌面窗口）",
+      "target": "resources/runtime/electron",
+      "archive": "zip",
+      "sizeMB": 116,
+      "required": true,
+      "verify": "electron.exe",
+      "urls": [
+        "https://cdn.npmmirror.com/binaries/electron/36.9.5/electron-v36.9.5-win32-x64.zip",
+        "https://npmmirror.com/mirrors/electron/36.9.5/electron-v36.9.5-win32-x64.zip",
+        "https://gh-proxy.com/https://github.com/electron/electron/releases/download/v36.9.5/electron-v36.9.5-win32-x64.zip"
+      ]
+    },
+    {
+      "id": "ffmpeg",
+      "title": "ffmpeg 8.0.3 共享版（导出编码 / 音轨混合）",
+      "target": "resources/bin",
+      "archive": "tar.xz",
+      "fromDir": "bin",
+      "keep": ["*.exe", "*.dll"],
+      "sizeMB": 53,
+      "required": false,
+      "verify": "ffmpeg.exe",
+      "sha256": "60b475f78defa0d7b5890650c0a4d50016bba54c17e0f3f6b060b9dce273429e",
+      "urls": [
+        "https://cdn.npmmirror.com/binaries/ffmpeg-builds/v8.0.3/ffmpeg-8.0.3-win32-x64-gpl-shared.tar.xz"
+      ]
+    },
+    {
+      "id": "asr-runtime",
+      "title": "语音识别引擎 llama-funasr-sensevoice（Vulkan 后端）",
+      "target": "resources/asr",
+      "archive": "zip",
+      "keep": ["llama-funasr-sensevoice.exe"],
+      "sizeMB": 15,
+      "required": false,
+      "verify": "llama-funasr-sensevoice.exe",
+      "sha256": "debf8007e55011cad06081e7b8a78972f1b8fe672bc324d41e650d68821f6a6a",
+      "urls": [
+        "https://gh-proxy.com/https://github.com/modelscope/FunASR/releases/download/runtime-llamacpp-v0.2.6/funasr-llamacpp-windows-x64-vulkan.zip",
+        "https://ghfast.top/https://github.com/modelscope/FunASR/releases/download/runtime-llamacpp-v0.2.6/funasr-llamacpp-windows-x64-vulkan.zip",
+        "https://github.com/modelscope/FunASR/releases/download/runtime-llamacpp-v0.2.6/funasr-llamacpp-windows-x64-vulkan.zip"
+      ]
+    },
+    {
+      "id": "asr-model",
+      "title": "语音识别模型 SenseVoice + FSMN-VAD（GGUF）",
+      "target": "resources/asr/models",
+      "archive": "none",
+      "sizeMB": 244,
+      "required": false,
+      "files": [
+        {
+          "name": "sensevoice-small-q8.gguf",
+          "sizeMB": 242,
+          "urls": [
+            "https://hf-mirror.com/FunAudioLLM/SenseVoiceSmall-GGUF/resolve/main/sensevoice-small-q8.gguf",
+            "https://huggingface.co/FunAudioLLM/SenseVoiceSmall-GGUF/resolve/main/sensevoice-small-q8.gguf"
+          ]
+        },
+        {
+          "name": "fsmn-vad.gguf",
+          "sizeMB": 2,
+          "urls": [
+            "https://hf-mirror.com/FunAudioLLM/fsmn-vad-GGUF/resolve/main/fsmn-vad.gguf",
+            "https://huggingface.co/FunAudioLLM/fsmn-vad-GGUF/resolve/main/fsmn-vad.gguf"
+          ]
+        }
+      ]
+    }
+  ]
+}

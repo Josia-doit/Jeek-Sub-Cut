@@ -1,0 +1,17 @@
+{
+  "name": "@jeek/render-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/server.mjs"
+  },
+  "scripts": {
+    "start": "node src/server.mjs"
+  },
+  "dependencies": {
+    "@jeek/contracts": "0.1.0",
+    "@jeek/core": "0.1.0",
+    "@jeek/engine": "0.1.0"
+  }
+}

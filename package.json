@@ -1,0 +1,53 @@
+{
+  "name": "jeeksubcut",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "以字幕驱动剪辑为起点、模块化可扩展的视频剪辑工作台",
+  "license": "MIT",
+  "workspaces": [
+    "packages/contracts",
+    "packages/core",
+    "packages/engine",
+    "packages/features/timeline",
+    "packages/features/subtitles",
+    "packages/features/audio",
+    "packages/features/asr",
+    "packages/features/export",
+    "packages/features/preview",
+    "apps/editor",
+    "apps/render-service",
+    "apps/desktop"
+  ],
+  "scripts": {
+    "build": "npm run build:packages && npm run build:editor",
+    "build:packages": "tsc -b packages/contracts packages/core packages/engine packages/features/timeline packages/features/subtitles packages/features/audio packages/features/asr packages/features/export packages/features/preview",
+    "build:editor": "npm run build -w @jeek/editor",
+    "test": "npm run build:packages && node tools/check-boundaries.mjs && node --test tests/document.test.mjs tests/kernel.test.mjs tests/render.test.mjs tests/bootstrap.test.mjs tests/editor.test.mjs tests/frame-eval.test.mjs tests/visual-eval.test.mjs tests/move-plan.test.mjs tests/timeline.test.mjs tests/style-rules.test.mjs tests/asr-split.test.mjs tests/export-config.test.mjs tests/subtitle-io.test.mjs tests/subtitle-edit.test.mjs tests/subtitle-insert.test.mjs tests/font-catalog.test.mjs tests/audio-dsp.test.mjs tests/range-snap.test.mjs tests/enter-persistence.test.mjs tests/glyph-align-cache.test.mjs",
+    "test:types": "tsc --noEmit -p apps/editor/tsconfig.json",
+    "setup": "node tools/install-deps.mjs",
+    "check:deps": "node tools/install-deps.mjs --check",
+    "start": "node tools/launch.mjs",
+    "start:browser": "node tools/launch.mjs --browser",
+    "start:dev": "node tools/launch.mjs --dev",
+    "check:launch": "node tools/launch.mjs --check",
+    "smoke": "node tools/smoke.mjs",
+    "smoke:desktop": "node tools/smoke.mjs --desktop",
+    "serve": "node apps/render-service/src/server.mjs",
+    "test:boundaries": "node tools/check-boundaries.mjs",
+    "dev": "npm run dev -w @jeek/editor",
+    "clean": "node tools/clean-build.mjs"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "asar": "^3.2.0",
+    "rcedit": "^5.0.1",
+    "sharp": "^0.35.5",
+    "to-ico": "^1.1.5",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

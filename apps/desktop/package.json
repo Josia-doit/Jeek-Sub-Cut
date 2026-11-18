@@ -1,0 +1,13 @@
+{
+  "name": "@jeek/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "electron.cjs",
+  "scripts": {
+    "start": "node src/main.mjs"
+  },
+  "dependencies": {
+    "@jeek/render-service": "0.1.0"
+  }
+}

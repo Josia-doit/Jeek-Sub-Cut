@@ -1,0 +1,29 @@
+# 仓库里只放纯净源码：构建产物、运行数据、模型、二进制都不入库
+app/
+bin/
+legacy/
+build/
+dist/
+resources/
+node_modules/
+input/
+output/
+install/.cache/
+install/local/
+.workbuddy/
+
+*.tsbuildinfo
+*.log
+*.mp4
+__pycache__/
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 安装脚本下载的字体（不入库，fonts/ 里只留说明文件）
+fonts/*.ttf
+fonts/*.otf
+fonts/*.woff
+fonts/*.woff2

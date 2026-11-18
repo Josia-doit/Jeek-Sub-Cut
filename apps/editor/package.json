@@ -1,0 +1,29 @@
+{
+  "name": "@jeek/editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@jeek/contracts": "0.1.0",
+    "@jeek/core": "0.1.0",
+    "@jeek/engine": "0.1.0",
+    "@jeek/feature-subtitles": "0.1.0",
+    "@jeek/feature-timeline": "0.1.0",
+    "@jeek/feature-audio": "0.1.0",
+    "@jeek/feature-asr": "0.1.0",
+    "@jeek/feature-export": "0.1.0",
+    "@jeek/feature-preview": "0.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.7"
+  }
+}
